@@ -1,0 +1,391 @@
+FORMAT: 1A
+HOST: http://www.huunu.com
+
+# Huunu
+All calls other than `Login` will require the UI to pass an `authorization_token` to the backend.
+
+
+Remaining TODOS:
+
+`Figure out outcome history call`
+
+`Figure out summary calls`
+
+`Determine if we need a call for FAQ (or is this just hard coded templates?)`
+
+`Do we need a call to update outcome scores / your position every so often? (this would probably only be necessary if we use the full data on GET /questions`
+
+
+
+
+# Group Questions
+One option we were discussing over here is to not return all the question data in this call 
+(in the case there could be a large amount of questions in the market).
+
+If we think that might be an issue, I propose we change this call to not send any 
+data in this call after the `overall_position` key.
+When clicking into a question, the UI would then make the next call in this group (`GET /questions/{id}`) and retrieve the remaining data points.
+## Questions Collection [/questions]
+### List all Questions [GET]
++ Response 200 (application/json)
+
+{
+    "questions": [
+        {
+            "id": 1, 
+            "topic": "Technology",
+            "title": "Google Glass", 
+            "description": "Google Glass is a wearable computer with an optical head-mounted display (OHMD) that is being developed by Google in the Project Glass research and development project, with a mission of producing a mass-market ubiquitous computer. Google Glass displays information in a smartphone-like hands-free format, that can communicate with the Internet via natural language voice commands.", 
+            "overall_position": {
+                "direction": "up",
+                "amount": 10
+            },
+            "media": "http://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Google_Glass_Explorer_Edition.jpeg/300px-Google_Glass_Explorer_Edition.jpeg", 
+            "outcomes": [
+                { 
+                    "id": 23,
+                    "name": "Definite winner",
+                    "media": "http://reviewrun.net/wp-content/uploads/2013/07/thumbs-up-button-pro.jpg",
+                    "score": 70,
+                    "position": 6
+                },
+                { 
+                    "id": 24,
+                    "name": "Losing idea",
+                    "media": "http://www.firetheboxingdiva.com/resources/thumbs-down.jpg",
+                    "score": 30,
+                    "position": null
+                }
+            ]
+        }, 
+        {
+            "id": 2, 
+            "topic": "Technology",
+            "title": "XBox One vs PS4", 
+            "description": "Which console is better? The Xbox One or the PS4?", 
+            "overall_position": null,
+            "media": "http://media2.policymic.com/0521d359789279d1498bae356cc504a5.jpg", 
+            "outcomes": [
+                { 
+                    "id": 25,
+                    "name": "XBox One",
+                    "media": null,
+                    "score": 50,
+                    "position": null
+                },
+                { 
+                    "id": 26,
+                    "name": "PS4",
+                    "media": null,
+                    "score": 50,
+                    "position": null
+                }
+            ]
+        }
+    ]
+}
+
+## Question [/questions/{id}]
+A single Question object with all its details.
+
+This would likely only be used if we decide not to return all data on the **Questions Collection** call.
+
++ Parameters
+    + id (required, number, `1`) ... Numeric `id` of the Question to get.
+
+### Retrieve a Question [GET]
++ Response 200 (application/json)
+
+    + Body
+
+        {
+            "id": 1, 
+            "topic": "Technology",
+            "title": "Google Glass", 
+            "description": "Google Glass is a wearable computer with an optical head-mounted display (OHMD) that is being developed by Google in the Project Glass research and development project, with a mission of producing a mass-market ubiquitous computer. Google Glass displays information in a smartphone-like hands-free format, that can communicate with the Internet via natural language voice commands.", 
+            "overall_position": {
+                "direction": "up",
+                "amount": 10
+            },
+            "media": "http://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Google_Glass_Explorer_Edition.jpeg/300px-Google_Glass_Explorer_Edition.jpeg", 
+            "outcomes": [
+                { 
+                    "id": 23,
+                    "name": "Definite winner",
+                    "media": "http://reviewrun.net/wp-content/uploads/2013/07/thumbs-up-button-pro.jpg",
+                    "score": 70,
+                    "position": 6
+                },
+                { 
+                    "id": 24,
+                    "name": "Losing idea",
+                    "media": "http://www.firetheboxingdiva.com/resources/thumbs-down.jpg",
+                    "score": 30,
+                    "position": null
+                }
+            ]
+        }
+
+
+
+# Group Outcome
+## Outcome History [/outcomes/{id}/history]
+This has not been updated yet. Still in flux on how to do this, will return to this call later.
+
++ Parameters
+    + id (required, number, `1`) ... Numeric `id` of the Outcome to perform action with.
+
+
+### Retrieve an Outcome with History (this is still to be determined) [GET]
++ Response 200 (application/json)
+
+    + Body
+
+            { "id": 3, "title": "Outcome One", "description": "blah blah", "media": "http://www.huunu.com/assets/lakdfj8.mp4", "question_id": 3,
+                "price": [ { "time": "2014-01-17T17:47:22.977Z", "price": "48.32" }, { "time": "2014-02-17T17:47:22.977Z", "price": "52.32" } ] 
+                }
+
+
+
+
+# Group Trade
+## Trading [/trades]
+
+### Create a Trade [POST]
+Posts a trade on the given `outcome_id`. 
+
+Response contains:
+
+- the trade `id` so the user can comment on that trade in a separate API call.
+- the updated `score` on each outcome (denoted by `id`) so the UI can be updated to show the change.
+- the updated `balance` the user has to spend
+
+
++ Request (application/json)
+
+        { 
+            "outcome_id": 3, 
+            "points": 10,
+            "action": "buy"
+        }
+
++ Parameters
+    + outcome_id (required, number, `1`) ... Numeric `id` of the Outcome to trade on.
+    + points (required, string, `7`) ... Amount of points investing/selling in outcome.
+    + action (required, string, `buy`) ... Type of trade perfomed. Possible options: `buy` or `sell`.    
+
++ Response 201 (application/json)
+
+    { 
+        "id": 3, 
+        "balance": 40,
+        "outcomes": [
+            {
+                "id": 23,
+                "score": 20
+            },
+            {
+                "id": 24,
+                "score": 80
+            }            
+        ]
+    }
+
+
+
+
+# Group Comments
+## Create Comment [/comments]
+Response is simply a confirmation that the comment was successful [might not even need this?].
+
+### Create a Comment [POST]
++ Request (application/json)
+
+        { 
+            "trade_id": 3, 
+            "comment": "Some comment" 
+        }
+
++ Parameters
+    + trade_id (required, number, `1`) ... Numeric `id` of the Trade being commented on.
+    + comment (required, string, `Some comment`) ... Comment.
+
++ Response 201 (application/json)
+
+        { 
+            "message": "Comment received!"
+        }
+
+
+
+# Group Badges
+## Badges Collection [/badges]
+An array of Badge objects belonging to the User (identified by authorization token sent with call).
+### List all Badges [GET]
+This endpoint will be hit whenever performing an action that may trigger the user to gain a badge, and once upon logging in.
+
++ Response 200 (application/json)
+    {
+        "badges": [
+            { 
+                "id": 1, 
+                "title": "Explorer", 
+                "description": "blah blah", 
+                "artwork": "http://www.huunu.com/assets/lakdfj8.svg" 
+            },
+            { 
+                "id": 2, 
+                "title": "Trailblazer", 
+                "description": "blah blah", 
+                "artwork": "http://www.huunu.com/assets/lakdfj1.svg" 
+            }
+        ]
+
+## Badge [/badges/{id}]
+A single Badge object with all its details. 
+
+Thinking about this more, I'm not sure we need this call. We will already have all necessary information from the `GET /badges` call. Leaving this in for now though.
+
++ Parameters
+    + id (required, number, `3`) ... Numeric `id` of the Question to perform action with.
+
+### Retrieve a Badge [GET]
++ Response 200 (application/json)
+
+    + Body
+
+        { 
+            "id": 1, 
+            "title": "Explorer", 
+            "description": "blah blah", 
+            "artwork": "http://www.huunu.com/assets/lakdfj8.svg" 
+        }
+
+
+
+# Group Users
+## Users Collection [/users/{id}]
+### Update a User [PUT]
+This call is only used when updating a user's account information.
+
++ Request (application/json)
+
+        { 
+            "username": "jvowell", 
+            "email": "jvowell@consensuspoint.com",
+            "email_preference": false,
+            "new_password": "jhasdfsadfs",
+            "old_password": "jhsv8ch3idhj"
+        }
+
++ Parameters
+    + username (required, string, `jvowell`) ... Username
+    + email (required, string, `jvowell@consensuspoint.com`) ... User's Email
+    + email_preference (required, boolean, `true`) ... Subscribe to market emails
+    + old_password (optional, string, `jhsv8ch3idhj`) ... Old Password (only required if updating password)
+    + password (optional, string, `jhasdfsadfs`) ... Password (only required if updating password)
+
++ Response 201 (application/json)
+
+        { 
+            "username": "jvowell", 
+            "email": "jvowell@consensuspoint.com",
+            "email_preference": false
+        }
+        
+## User [/users/{id}]
+
++ Parameters
+    + id (required, number, `1`) ... Numeric `id` of the User to retrieve.
+
+### Retrieve a User [GET]
+Used for populating the user account information.
++ Response 200 (application/json)
+
+    + Body
+
+        { 
+            "username": "jvowell", 
+            "email": "jvowell@consensuspoint.com",
+            "email_preference": false
+        }
+        
+
+# Group Authentication
+
+## Login [/login]
+Returns the `authorization_token` that is used for all other calls.
+Also returns the user's `balance`.
+
+### Login [POST]
++ Request (application/json)
+
+        { 
+            "username": "jvowell", 
+            "password": "askdjfhAsdf"
+        }
+
++ Parameters
+    + username (required, string, `jvowell`) ... Username
+    + password (required, string, `jhasdfsadfs`) ... Password
+
++ Response 201 (application/json)
+
+        { 
+            "authorization_token": "asdjhfahsfbq35askhdfbauydsbf78345sdf",
+            "balance": 50 
+        }
+
+## Logout [/logout]
+### Logout [GET]
++ Response 200
+
+
+
+
+# Group Demographics
+## Demographics [/demographics]
+### Retrieve Demographic Questions [GET]
++ Response 200 (application/json)
+
+    + Body
+    
+            { 
+                "questions": [
+                    { 
+                        "id": 9, 
+                        "text": "What does the fox say?", 
+                        "options": [
+                            { "id": 3, "text": "Ring-ding-ding" },
+                            { "id": 4, "text": "Heidi-heidi-heidi-ho" },
+                            { "id": 5, "text": "Chaka-chaka-cho" }
+                        ]
+                    },
+                    { 
+                        "id": 10, 
+                        "text": "What does the cow say?", 
+                        "options": [
+                            { "id": 6, "text": "Ring-ding-ding" },
+                            { "id": 7, "text": "Heidi-heidi-heidi-ho" },
+                            { "id": 8, "text": "Chaka-chaka-cho" }
+                        ]
+                    }
+                ]
+            }
+
+### Post demographic answers [POST]
++ Request (application/json)
+
+        { 
+            "answers": [
+                { "question_id": 9, "answer_id": 5 },
+                { "question_id": 12, "answer_id": 33 }
+            ]
+        }
+
++ Parameters
+    + answers (required, array, `See payload`) ... Answers
+
++ Response 201 (application/json)
+
+

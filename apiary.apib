@@ -28,61 +28,61 @@ When clicking into a question, the UI would then make the next call in this grou
 ### List all Questions [GET]
 + Response 200 (application/json)
 
-{
-    "questions": [
         {
-            "id": 1, 
-            "topic": "Technology",
-            "title": "Google Glass", 
-            "description": "Google Glass is a wearable computer with an optical head-mounted display (OHMD) that is being developed by Google in the Project Glass research and development project, with a mission of producing a mass-market ubiquitous computer. Google Glass displays information in a smartphone-like hands-free format, that can communicate with the Internet via natural language voice commands.", 
-            "overall_position": {
-                "direction": "up",
-                "amount": 10
-            },
-            "media": "http://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Google_Glass_Explorer_Edition.jpeg/300px-Google_Glass_Explorer_Edition.jpeg", 
-            "outcomes": [
-                { 
-                    "id": 23,
-                    "name": "Definite winner",
-                    "media": "http://reviewrun.net/wp-content/uploads/2013/07/thumbs-up-button-pro.jpg",
-                    "score": 70,
-                    "position": 6
-                },
-                { 
-                    "id": 24,
-                    "name": "Losing idea",
-                    "media": "http://www.firetheboxingdiva.com/resources/thumbs-down.jpg",
-                    "score": 30,
-                    "position": null
-                }
-            ]
-        }, 
-        {
-            "id": 2, 
-            "topic": "Technology",
-            "title": "XBox One vs PS4", 
-            "description": "Which console is better? The Xbox One or the PS4?", 
-            "overall_position": null,
-            "media": "http://media2.policymic.com/0521d359789279d1498bae356cc504a5.jpg", 
-            "outcomes": [
-                { 
-                    "id": 25,
-                    "name": "XBox One",
-                    "media": null,
-                    "score": 50,
-                    "position": null
-                },
-                { 
-                    "id": 26,
-                    "name": "PS4",
-                    "media": null,
-                    "score": 50,
-                    "position": null
+            "questions": [
+                {
+                    "id": 1, 
+                    "topic": "Technology",
+                    "title": "Google Glass", 
+                    "description": "Google Glass is a wearable computer with an optical head-mounted display (OHMD) that is being developed by Google in the Project Glass research and development project, with a mission of producing a mass-market ubiquitous computer. Google Glass displays information in a smartphone-like hands-free format, that can communicate with the Internet via natural language voice commands.", 
+                    "overall_position": {
+                        "direction": "up",
+                        "amount": 10
+                    },
+                    "media": "http://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Google_Glass_Explorer_Edition.jpeg/300px-Google_Glass_Explorer_Edition.jpeg", 
+                    "outcomes": [
+                        { 
+                            "id": 23,
+                            "name": "Definite winner",
+                            "media": "http://reviewrun.net/wp-content/uploads/2013/07/thumbs-up-button-pro.jpg",
+                            "score": 70,
+                            "position": 6
+                        },
+                        { 
+                            "id": 24,
+                            "name": "Losing idea",
+                            "media": "http://www.firetheboxingdiva.com/resources/thumbs-down.jpg",
+                            "score": 30,
+                            "position": null
+                        }
+                    ]
+                }, 
+                {
+                    "id": 2, 
+                    "topic": "Technology",
+                    "title": "XBox One vs PS4", 
+                    "description": "Which console is better? The Xbox One or the PS4?", 
+                    "overall_position": null,
+                    "media": "http://media2.policymic.com/0521d359789279d1498bae356cc504a5.jpg", 
+                    "outcomes": [
+                        { 
+                            "id": 25,
+                            "name": "XBox One",
+                            "media": null,
+                            "score": 50,
+                            "position": null
+                        },
+                        { 
+                            "id": 26,
+                            "name": "PS4",
+                            "media": null,
+                            "score": 50,
+                            "position": null
+                        }
+                    ]
                 }
             ]
         }
-    ]
-}
 
 ## Question [/questions/{id}]
 A single Question object with all its details.
@@ -175,20 +175,20 @@ Response contains:
 
 + Response 201 (application/json)
 
-    { 
-        "id": 3, 
-        "balance": 40,
-        "outcomes": [
-            {
-                "id": 23,
-                "score": 20
-            },
-            {
-                "id": 24,
-                "score": 80
-            }            
-        ]
-    }
+        { 
+            "id": 3, 
+            "balance": 40,
+            "outcomes": [
+                {
+                    "id": 23,
+                    "score": 20
+                },
+                {
+                    "id": 24,
+                    "score": 80
+                }            
+            ]
+        }
 
 
 
@@ -224,21 +224,23 @@ An array of Badge objects belonging to the User (identified by authorization tok
 This endpoint will be hit whenever performing an action that may trigger the user to gain a badge, and once upon logging in.
 
 + Response 200 (application/json)
-    {
-        "badges": [
-            { 
-                "id": 1, 
-                "title": "Explorer", 
-                "description": "blah blah", 
-                "artwork": "http://www.huunu.com/assets/lakdfj8.svg" 
-            },
-            { 
-                "id": 2, 
-                "title": "Trailblazer", 
-                "description": "blah blah", 
-                "artwork": "http://www.huunu.com/assets/lakdfj1.svg" 
-            }
-        ]
+
+        {
+            "badges": [
+                { 
+                    "id": 1, 
+                    "title": "Explorer", 
+                    "description": "blah blah", 
+                    "artwork": "http://www.huunu.com/assets/lakdfj8.svg" 
+                },
+                { 
+                    "id": 2, 
+                    "title": "Trailblazer", 
+                    "description": "blah blah", 
+                    "artwork": "http://www.huunu.com/assets/lakdfj1.svg" 
+                }
+            ]
+        }
 
 ## Badge [/badges/{id}]
 A single Badge object with all its details. 
@@ -253,12 +255,12 @@ Thinking about this more, I'm not sure we need this call. We will already have a
 
     + Body
 
-        { 
-            "id": 1, 
-            "title": "Explorer", 
-            "description": "blah blah", 
-            "artwork": "http://www.huunu.com/assets/lakdfj8.svg" 
-        }
+            { 
+                "id": 1, 
+                "title": "Explorer", 
+                "description": "blah blah", 
+                "artwork": "http://www.huunu.com/assets/lakdfj8.svg" 
+            }
 
 
 
@@ -303,11 +305,11 @@ Used for populating the user account information.
 
     + Body
 
-        { 
-            "username": "jvowell", 
-            "email": "jvowell@consensuspoint.com",
-            "email_preference": false
-        }
+            { 
+                "username": "jvowell", 
+                "email": "jvowell@consensuspoint.com",
+                "email_preference": false
+            }
         
 
 # Group Authentication
@@ -387,18 +389,21 @@ Also returns the user's `balance`.
 
 + Response 201 (application/json)
 
-# Group Demographics
+# Group Summary
 ## Summary [/summary]
 ### Retrieve Summary data [GET]
 + Response 200 (application/json)
-    {
-        "overall_score": 23
-        "viewed": 
-            "count": 8
-            "current_user": 30
-            "all_users": 60
-        "commented": 
-            "count": 5
-            "current_user": 40
-            "all_users": 70
-    }
+
+        {
+            "overall_score": 23,
+            "viewed": {
+                "count": 8,
+                "current_user": 30
+            },
+            "all_users": 60,
+            "commented": {
+                "count": 5,
+                "current_user": 40,
+                "all_users": 70
+            }
+        }

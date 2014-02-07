@@ -128,11 +128,8 @@ This would likely only be used if we decide not to return all data on the **Ques
 
 
 # Group Outcome
-## Outcome History [/outcomes/{id}/history]
+## Outcome History [/outcomes/history]
 This has not been updated yet. Still in flux on how to do this, will return to this call later.
-
-+ Parameters
-    + id (required, number, `1`) ... Numeric `id` of the Outcome to perform action with.
 
 
 ### Retrieve an Outcome with History (this is still to be determined) [GET]
@@ -140,9 +137,22 @@ This has not been updated yet. Still in flux on how to do this, will return to t
 
     + Body
 
-            { "id": 3, "title": "Outcome One", "description": "blah blah", "media": "http://www.huunu.com/assets/lakdfj8.mp4", "question_id": 3,
-                "price": [ { "time": "2014-01-17T17:47:22.977Z", "price": "48.32" }, { "time": "2014-02-17T17:47:22.977Z", "price": "52.32" } ] 
-                }
+            {
+                "id": 3,
+                "title": "Outcome One",
+                "description": "Fusce sed quam sed augue laoreet rutrum in sit amet mi",
+                "media": "http://www.huunu.com/assets/lakdfj8.mp4",
+                "question_id": 3,
+                "price": [
+                    { "time": "2014-01-17T17:47:22.977Z", "price": "48.32" },
+                    { "time": "2014-02-17T17:47:22.977Z", "price": "52.32" }
+                    { "time": "2014-03-17T17:47:22.977Z", "price": "62.32" }
+                    { "time": "2014-04-17T17:47:22.977Z", "price": "32.32" }
+                    { "time": "2014-05-17T17:47:22.977Z", "price": "42.32" }
+                    { "time": "2014-06-17T17:47:22.977Z", "price": "52.32" }
+                    { "time": "2014-07-17T17:47:22.977Z", "price": "32.32" }
+                ] 
+            }
 
 
 

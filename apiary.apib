@@ -86,54 +86,79 @@ When clicking into a question, the UI would then make the next call in this grou
 
 ## Question [/markets/{market_id}/questions/{id}]
 A single Question object with all its details.
-
 This would likely only be used if we decide not to return all data on the **Questions Collection** call.
 
 + Parameters
+    + market_id (required, number, `1`) ... Numeric `id` of the Market to get.
     + id (required, number, `1`) ... Numeric `id` of the Question to get.
 
 ### Retrieve a Question [GET]
 + Response 200 (application/json)
 
     + Body
-
-        {
-            "id": 1, 
-            "topic": "Technology",
-            "title": "Google Glass", 
-            "description": "Google Glass is a wearable computer with an optical head-mounted display (OHMD) that is being developed by Google in the Project Glass research and development project, with a mission of producing a mass-market ubiquitous computer. Google Glass displays information in a smartphone-like hands-free format, that can communicate with the Internet via natural language voice commands.", 
-            "overall_position": {
-                "direction": "up",
-                "amount": 10
-            },
-            "media": "http://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Google_Glass_Explorer_Edition.jpeg/300px-Google_Glass_Explorer_Edition.jpeg", 
-            "outcomes": [
-                { 
-                    "id": 23,
-                    "name": "Definite winner",
-                    "media": "http://reviewrun.net/wp-content/uploads/2013/07/thumbs-up-button-pro.jpg",
-                    "score": 70,
-                    "position": 6
+    
+            {
+                "id": 1,
+                "topic": "Technology",
+                "title": "Google Glass", 
+                "description": "Google Glass is a wearable computer with an optical head-mounted display (OHMD) that is being developed by Google in the Project Glass research and development project, with a mission of producing a mass-market ubiquitous computer. Google Glass displays information in a smartphone-like hands-free format, that can communicate with the Internet via natural language voice commands.", 
+                "overall_position": {
+                    "direction": "up",
+                    "amount": 10
                 },
-                { 
-                    "id": 24,
-                    "name": "Losing idea",
-                    "media": "http://www.firetheboxingdiva.com/resources/thumbs-down.jpg",
-                    "score": 30,
-                    "position": null
-                }
-            ]
-        }
+                "media": "http://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Google_Glass_Explorer_Edition.jpeg/300px-Google_Glass_Explorer_Edition.jpeg", 
+                "outcomes": [
+                    { 
+                        "id": 23,
+                        "name": "Definite winner",
+                        "media": "http://reviewrun.net/wp-content/uploads/2013/07/thumbs-up-button-pro.jpg",
+                        "score": 70,
+                        "position": 6
+                    },
+                    { 
+                        "id": 24,
+                        "name": "Losing idea",
+                        "media": "http://www.firetheboxingdiva.com/resources/thumbs-down.jpg",
+                        "score": 30,
+                        "position": null
+                    }
+                ]
+            }
 
 
 
 # Group Outcome
-## Outcome History [/markets/{market_id}/questions/{question_id}/outcomes/{outcome_id}/history]
-This has not been updated yet. Still in flux on how to do this, will return to this call later.
+## Outcome [/markets/{market_id}/outcomes/{outcome_id}]
+### Submit a trade [PUT]
++ Parameters
+    + market_id (required, number, `1`) ... Numeric `id` of the Market to get.
+    + outcome_id (required, number, `1`) ... Numeric `id` of the Outcome to get.
+
++ Request (application/json)
+
+        { 
+            "position": 3, 
+            "comment": "Some comment" 
+        }
+        
++ Response 201 (application/json)
+
+    + Body
+    
+            {
+                
+            }
 
 
-### Retrieve an Outcome with History (this is still to be determined) [GET]
-+ Response 200 (application/json)
+## Outcome History [/markets/{market_id}/questions/{question_id}/outcomes/history]
+List of outcomes for a user
+
++ Parameters
+    + market_id (required, number, `1`) ... Numeric `id` of the Market to get.
+    + question_id (required, number, `1`) ... Numeric `id` of the Question to get.
+
+### Retrieve an Outcome with History [GET]
++ Response 201 (application/json)
 
     + Body
 
@@ -143,87 +168,48 @@ This has not been updated yet. Still in flux on how to do this, will return to t
                 "description": "Fusce sed quam sed augue laoreet rutrum in sit amet mi",
                 "media": "http://www.huunu.com/assets/lakdfj8.mp4",
                 "question_id": 3,
-                "price": [
-                    { "time": "2014-01-17T17:47:22.977Z", "price": "48.32" },
-                    { "time": "2014-02-17T17:47:22.977Z", "price": "52.32" }
-                    { "time": "2014-03-17T17:47:22.977Z", "price": "62.32" }
-                    { "time": "2014-04-17T17:47:22.977Z", "price": "32.32" }
-                    { "time": "2014-05-17T17:47:22.977Z", "price": "42.32" }
-                    { "time": "2014-06-17T17:47:22.977Z", "price": "52.32" }
-                    { "time": "2014-07-17T17:47:22.977Z", "price": "32.32" }
+                "overall_position": 12
+                "price": {
+                    "all": [
+                        ['01-May-12', 582.13],
+                        ['30-Apr-12', 583.98],
+                        ['27-Apr-12', 603.00],
+                        ['26-Apr-12', 607.70],
+                        ['25-Apr-12', 610.00]
+                    ],
+                    "user": [
+                        ['01-May-12', 582.13],
+                        ['30-Apr-12', 583.98],
+                        ['27-Apr-12', 603.00],
+                        ['26-Apr-12', 607.70],
+                        ['25-Apr-12', 610.00]
+                    ]
+                ] 
+            },
+            {
+                "id": 4,
+                "title": "Outcome Two",
+                "description": "Fusce sed quam sed augue laoreet rutrum in sit amet mi",
+                "media": "http://www.huunu.com/assets/lakdfj8.mp4",
+                "question_id": 3,
+                "overall_position": -4
+                "price": {
+                    "all": [
+                        ['01-May-12', 582.13],
+                        ['30-Apr-12', 583.98],
+                        ['27-Apr-12', 603.00],
+                        ['26-Apr-12', 607.70],
+                        ['25-Apr-12', 610.00]
+                    ],
+                    "user": [
+                        ['01-May-12', 582.13],
+                        ['30-Apr-12', 583.98],
+                        ['27-Apr-12', 603.00],
+                        ['26-Apr-12', 607.70],
+                        ['25-Apr-12', 610.00]
+                    ]
                 ] 
             }
-
-
-
-
-# Group Trade
-## Trading [/users/{user_id}/trades]
-
-### Create a Trade [POST]
-Posts a trade on the given `outcome_id`. 
-
-Response contains:
-
-- the trade `id` so the user can comment on that trade in a separate API call.
-- the updated `score` on each outcome (denoted by `id`) so the UI can be updated to show the change.
-- the updated `balance` the user has to spend
-
-
-+ Request (application/json)
-
-        { 
-            "outcome_id": 3, 
-            "points": 10,
-            "action": "buy"
-        }
-
-+ Parameters
-    + outcome_id (required, number, `1`) ... Numeric `id` of the Outcome to trade on.
-    + points (required, string, `7`) ... Amount of points investing/selling in outcome.
-    + action (required, string, `buy`) ... Type of trade perfomed. Possible options: `buy` or `sell`.    
-
-+ Response 201 (application/json)
-
-        { 
-            "id": 3, 
-            "balance": 40,
-            "outcomes": [
-                {
-                    "id": 23,
-                    "score": 20
-                },
-                {
-                    "id": 24,
-                    "score": 80
-                }            
-            ]
-        }
-
-
-
-
-# Group Comments
-## Create Comment [/users/{user_id}/trades/{id}/comments]
-Response is simply a confirmation that the comment was successful [might not even need this?].
-
-### Create a Comment [POST]
-+ Request (application/json)
-
-        { 
-            "trade_id": 3, 
-            "comment": "Some comment" 
-        }
-
-+ Parameters
-    + trade_id (required, number, `1`) ... Numeric `id` of the Trade being commented on.
-    + comment (required, string, `Some comment`) ... Comment.
-
-+ Response 201 (application/json)
-
-        { 
-            "message": "Comment received!"
-        }
 
 
 
@@ -303,14 +289,13 @@ This call is only used when updating a user's account information.
             "email": "jvowell@consensuspoint.com",
             "email_preference": false
         }
-        
-## User [/users/{id}]
 
-+ Parameters
-    + id (required, number, `1`) ... Numeric `id` of the User to retrieve.
 
 ### Retrieve a User [GET]
 Used for populating the user account information.
++ Parameters
+    + id (required, number, `1`) ... Numeric `id` of the User to retrieve.
+
 + Response 200 (application/json)
 
     + Body
@@ -335,10 +320,6 @@ Also returns the user's `balance`.
             "username": "jvowell", 
             "password": "askdjfhAsdf"
         }
-
-+ Parameters
-    + username (required, string, `jvowell`) ... Username
-    + password (required, string, `jhasdfsadfs`) ... Password
 
 + Response 201 (application/json)
 
@@ -395,10 +376,9 @@ Also returns the user's `balance`.
             ]
         }
 
-+ Parameters
-    + answers (required, array, `See payload`) ... Answers
 
-+ Response 201 (application/json)
++ Response 201 
+
 
 # Group Summary
 ## Summary [/markets/{market_id}/summary]

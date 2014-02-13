@@ -24,7 +24,7 @@ One option we were discussing over here is to not return all the question data i
 If we think that might be an issue, I propose we change this call to not send any 
 data in this call after the `overall_position` key.
 When clicking into a question, the UI would then make the next call in this group (`GET /questions/{id}`) and retrieve the remaining data points.
-## Questions Collection [/markets/{market_id}/questions]
+## Questions Collection [/questions]
 ### List all Questions [GET]
 + Response 200 (application/json)
 
@@ -84,7 +84,7 @@ When clicking into a question, the UI would then make the next call in this grou
             ]
         }
 
-## Question [/markets/{market_id}/questions/{id}]
+## Question [/questions/{id}]
 A single Question object with all its details.
 This would likely only be used if we decide not to return all data on the **Questions Collection** call.
 
@@ -128,10 +128,9 @@ This would likely only be used if we decide not to return all data on the **Ques
 
 
 # Group Outcome
-## Outcome [/markets/{market_id}/outcomes/{outcome_id}]
+## Outcome [/outcomes/{outcome_id}]
 ### Submit a trade [PUT]
 + Parameters
-    + market_id (required, number, `1`) ... Numeric `id` of the Market to get.
     + outcome_id (required, number, `1`) ... Numeric `id` of the Outcome to get.
 
 + Request (application/json)
@@ -150,11 +149,10 @@ This would likely only be used if we decide not to return all data on the **Ques
             }
 
 
-## Outcome History [/markets/{market_id}/questions/{question_id}/outcomes/history]
+## Outcome History [/questions/{question_id}/outcomes/history]
 List of outcomes for a user
 
 + Parameters
-    + market_id (required, number, `1`) ... Numeric `id` of the Market to get.
     + question_id (required, number, `1`) ... Numeric `id` of the Question to get.
 
 ### Retrieve an Outcome with History [GET]
@@ -214,7 +212,7 @@ List of outcomes for a user
 
 
 # Group Badges
-## Badges Collection [/markets/{market_id}/badges]
+## Badges Collection [/badges]
 An array of Badge objects belonging to the User (identified by authorization token sent with call).
 ### List all Badges [GET]
 This endpoint will be hit whenever performing an action that may trigger the user to gain a badge, and once upon logging in.
@@ -238,7 +236,7 @@ This endpoint will be hit whenever performing an action that may trigger the use
             ]
         }
 
-## Badge [/markets/{market_id}/badges/{id}]
+## Badge [/badges/{id}]
 A single Badge object with all its details. 
 
 Thinking about this more, I'm not sure we need this call. We will already have all necessary information from the `GET /badges` call. Leaving this in for now though.
@@ -337,7 +335,7 @@ Also returns the user's `balance`.
 
 
 # Group Demographics
-## Demographics [/markets/{market_id}/demographics]
+## Demographics [/demographics]
 ### Retrieve Demographic Questions [GET]
 + Response 200 (application/json)
 
@@ -381,7 +379,7 @@ Also returns the user's `balance`.
 
 
 # Group Summary
-## Summary [/markets/{market_id}/summary]
+## Summary [/summary]
 ### Retrieve Summary data [GET]
 + Response 200 (application/json)
 

@@ -218,22 +218,38 @@ This endpoint will be hit whenever performing an action that may trigger the use
 
 + Response 200 (application/json)
 
-        {
-            "badges": [
-                { 
-                    "id": 1, 
-                    "title": "Explorer", 
-                    "description": "blah blah", 
-                    "artwork": "http://www.huunu.com/assets/lakdfj8.svg" 
-                },
-                { 
-                    "id": 2, 
-                    "title": "Trailblazer", 
-                    "description": "blah blah", 
-                    "artwork": "http://www.huunu.com/assets/lakdfj1.svg" 
-                }
-            ]
-        }
+        [
+            {
+                "title": "Logins",
+                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lacinia orci sed eleifend dictum.",
+                "level": "silver",
+                "id": 1
+            },
+            {
+                "title": "Comments",
+                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lacinia orci sed eleifend dictum.",
+                "level": "silver",
+                "id": 2
+            },
+            {
+                "title": "Spending",
+                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lacinia orci sed eleifend dictum.",
+                "level": "gold",
+                "id": 3
+            },
+            {
+                "title": "Trailblazer",
+                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lacinia orci sed eleifend dictum.",
+                "level": "none",
+                "id": 4
+            },
+            {
+                "title": "Views",
+                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lacinia orci sed eleifend dictum.",
+                "level": "bronze",
+                "id": 5
+            }
+        ]
 
 ## Badge [/badges/{id}]
 A single Badge object with all its details. 

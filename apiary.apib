@@ -284,7 +284,7 @@ This call is only used when updating a user's account information.
             "username": "jvowell", 
             "email": "jvowell@consensuspoint.com",
             "email_preference": false,
-            "new_password": "jhasdfsadfs",
+            "password": "jhasdfsadfs",
             "old_password": "jhsv8ch3idhj"
         }
 
@@ -336,7 +336,10 @@ Also returns the user's `balance`.
 
 + Response 201 (application/json)
 
-        { 
+        {
+            "username": "jvowell",
+            "id": 123,
+            "email": "jvowell@gmail.com", 
             "authorization_token": "asdjhfahsfbq35askhdfbauydsbf78345sdf",
             "market_id": 412,
             "balance": 50 

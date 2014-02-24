@@ -145,62 +145,61 @@ This would likely only be used if we decide not to return all data on the **Ques
 ## Outcome History [/outcomes/history]
 List of outcomes for a user
 
-+ Parameters
-    + question_id (required, number, `1`) ... Numeric `id` of the Question to get.
-
 ### Retrieve an Outcome with History [GET]
 + Response 201 (application/json)
 
     + Body
-
-            {
-                "id": 3,
-                "title": "Outcome One",
-                "description": "Fusce sed quam sed augue laoreet rutrum in sit amet mi",
-                "media": "http://www.huunu.com/assets/lakdfj8.mp4",
-                "question_id": 3,
-                "overall_position": 12
-                "price": {
-                    "all": [
-                        ['01-May-12', 582.13],
-                        ['30-Apr-12', 583.98],
-                        ['27-Apr-12', 603.00],
-                        ['26-Apr-12', 607.70],
-                        ['25-Apr-12', 610.00]
-                    ],
-                    "user": [
-                        ['01-May-12', 582.13],
-                        ['30-Apr-12', 583.98],
-                        ['27-Apr-12', 603.00],
-                        ['26-Apr-12', 607.70],
-                        ['25-Apr-12', 610.00]
-                    ]
-                ] 
-            },
-            {
-                "id": 4,
-                "title": "Outcome Two",
-                "description": "Fusce sed quam sed augue laoreet rutrum in sit amet mi",
-                "media": "http://www.huunu.com/assets/lakdfj8.mp4",
-                "question_id": 3,
-                "overall_position": -4
-                "price": {
-                    "all": [
-                        ['01-May-12', 582.13],
-                        ['30-Apr-12', 583.98],
-                        ['27-Apr-12', 603.00],
-                        ['26-Apr-12', 607.70],
-                        ['25-Apr-12', 610.00]
-                    ],
-                    "user": [
-                        ['01-May-12', 582.13],
-                        ['30-Apr-12', 583.98],
-                        ['27-Apr-12', 603.00],
-                        ['26-Apr-12', 607.70],
-                        ['25-Apr-12', 610.00]
-                    ]
-                ] 
-            }
+    
+            [
+                {
+                    "id": 3,
+                    "title": "Outcome One",
+                    "description": "Fusce sed quam sed augue laoreet rutrum in sit amet mi",
+                    "media": "http://www.huunu.com/assets/lakdfj8.mp4",
+                    "question_id": 3,
+                    "overall_position": 12
+                    "price": {
+                        "all": [
+                            ['01-May-12', 582.13],
+                            ['30-Apr-12', 583.98],
+                            ['27-Apr-12', 603.00],
+                            ['26-Apr-12', 607.70],
+                            ['25-Apr-12', 610.00]
+                        ],
+                        "user": [
+                            ['01-May-12', 582.13],
+                            ['30-Apr-12', 583.98],
+                            ['27-Apr-12', 603.00],
+                            ['26-Apr-12', 607.70],
+                            ['25-Apr-12', 610.00]
+                        ]
+                    ] 
+                },
+                {
+                    "id": 4,
+                    "title": "Outcome Two",
+                    "description": "Fusce sed quam sed augue laoreet rutrum in sit amet mi",
+                    "media": "http://www.huunu.com/assets/lakdfj8.mp4",
+                    "question_id": 3,
+                    "overall_position": -4
+                    "price": {
+                        "all": [
+                            ['01-May-12', 582.13],
+                            ['30-Apr-12', 583.98],
+                            ['27-Apr-12', 603.00],
+                            ['26-Apr-12', 607.70],
+                            ['25-Apr-12', 610.00]
+                        ],
+                        "user": [
+                            ['01-May-12', 582.13],
+                            ['30-Apr-12', 583.98],
+                            ['27-Apr-12', 603.00],
+                            ['26-Apr-12', 607.70],
+                            ['25-Apr-12', 610.00]
+                        ]
+                    ] 
+                }
+            ]
 
 
 
